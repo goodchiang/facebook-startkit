@@ -26,65 +26,66 @@
 			</form>
 	    </article>	
 		
-
+	<script>
 		//step1:https://www.parse.com/docs/js/guide#users-facebook-users
-		 // Initialize Parse
- 	Parse.initialize("VL0C1iWYVpGtUTdwKhiiNUhFAEgYp69qx3c62GiN", "Q6Qe1448kcKoK5eqkTsJiXdxLlvx1Ab8JiJH7w3O");
- 	window.fbAsyncInit = function() {
- 	Parse.FacebookUtils.init({ // this line replaces FB.init({
-		appId : '{1416096558716471}', // Facebook App ID
- 		status : true, // check Facebook Login status
- 		cookie : true, // enable cookies to allow Parse to access the session
- 		xfbml : true, // initialize Facebook social plugins on the page
- 		version : 'v2.3' // point to the latest Facebook Graph API version
- 	});
- 	// Run code after the Facebook SDK is loaded.
- 	};
- 	(function(d, s, id){
- 	var js, fjs = d.getElementsByTagName(s)[0];
- 	if (d.getElementById(id)) {return;}
- 	js = d.createElement(s); js.id = id;
- 	js.src = "//connect.facebook.net/en_US/sdk.js";
- 	fjs.parentNode.insertBefore(js, fjs);
- 	}(document, 'script', 'facebook-jssdk'));
+		// Initialize Parse
+		 Parse.initialize("3Ct29PJCet8L8kfhLvbLTJ3DLKRC61RAp7ysXFU6", "3yHxjy4EBgJTMWYBuP1T7rG4qOHiiOuAnokZB5jb");
+		 window.fbAsyncInit = function() {
+		 Parse.FacebookUtils.init({ // this line replaces FB.init({
+		 appId : '{376624765869068}', // Facebook App ID
+		 status : true, // check Facebook Login status
+		 cookie : true, // enable cookies to allow Parse to access the session
+		 xfbml : true, // initialize Facebook social plugins on the page
+		 version : 'v2.3' // point to the latest Facebook Graph API version
+		 });
+		 // Run code after the Facebook SDK is loaded.
+		 };
+		 (function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+		 }(document, 'script', 'facebook-jssdk'));
+
+
        
 		function fblogin(){
 		//step2:https://developers.facebook.com/docs/graph-api/using-graph-api/v2.3	
-		
-	Parse.FacebookUtils.logIn(null, {
- success: function(user) {
- if (!user.existed()) {
- alert("User signed up and logged in through Facebook!");
- } else {
- alert("User logged in through Facebook!");
- }
- //等等要在這邊加程式碼 FB.getLoginStatus
-  indexView(); //這是預先寫好的控制版⾯的function，⾮臉書api
- FB.getLoginStatus(function(response) {
- if (response.status === 'connected') {
- //等等要在這邊加程式碼 使⽤FB.api()
-//擷取⼤頭照
- FB.api('/me/picture?type=large',function(response) {
- $('#fbImgView').html("<h5>Here are your profile photo</h5><img
-src="+response.data.url+"crossorigin=\"anonymous\" id=preview1 / >");
- });
-//個⼈資訊
- FB.api('/me',function(response) {
- $('#fbImgView').append("<h1>Welcome ,"+(response['gender']=="male"?"Mr. ":"Miss ")
-+" "+response['first_name']+"</h1>");
- }); 
+			Parse.FacebookUtils.logIn(null, {
+			 success: function(user) {
+ 			if (!user.existed()) {
+ 			alert("User signed up and logged in through Facebook!");
+ 			} else {
+ 			alert("User logged in through Facebook!");
+ 			}
 
- }
- });
- 
- 
- },
- error: function(user, error) {
- alert("User cancelled the Facebook login or did not fully authorize.");
- }
-});
+ 			//等等要在這邊加程式碼 FB.getLoginStatus
+ 			indexView(); //這是預先寫好的控制版⾯的function，⾮臉書api
+			FB.getLoginStatus(function(response) {
+ 			if (response.status === 'connected') {
+
+ 			//等等要在這邊加程式碼 使⽤FB.api()
+			//擷取大頭照
+			FB.api('/me/picture?type=large', function (response) {
+				$('#fbImgView').html("<h5>Here are your profile photo</h5><img src="+response.data.url+" crossorigin=\"anonymous\" id=preview1 />");          
+			});
+			//個人資訊
+			FB.api('/me', function (response) {
+				console.log(response);
+				$('#fbImgView').append("<h1>Welcome , "+(response['gender']=="male"?"Mr. ":"Miss ")+" "+response['first_name']+"</h1>");
+			});
+ 			}
+ 			});
+			 },
+ 			error: function(user, error) {
+			 alert("User cancelled the Facebook login or did not fully authorize.");
+			 }
+			});
+
 		}
-	
+		
+	</script>
     <script src="js/graphApi.js"></script>		   	
     </body>
 </html>
